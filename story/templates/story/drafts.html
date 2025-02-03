@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+
+{% if messages %}
+{% for message in messages %}
+<article class="message is-{{message.tags}}">
+<div class="message-body">
+  {{message}}
+</div>
+</article>
+{% endfor %}
+{% endif %}
+
+<span class="title is-size-4">Your drafts</span><span class="is-pulled-right title is-size-5">{{drafts_count}}</span>
+<hr>
+
+<div class="columns is-centered">
+<div class="column is-half is-wider">
+
+
+{% for draft in drafts %}
+
+<div class="box" style="border-radius: 10px;">
+	<nav class="level is-mobile" style="margin-bottom:5px;">
+		<div class="level-left">
+			<div class="level-item">
+				<figure class="image is-32x32">
+				 <img class="profile_pic"  style="width:32px; height:32px; border: 1px solid #2176D3;" src="{{draft.user.profile.profile_pic.url}}">
+				</figure>
+			</div>
+			<div class="level-item">
+				<p class="title is-size-6">{{draft.user.first_name}} {{draft.user.last_name}} · <span style="color: grey;">{{draft.date_created|date}}</span></p>
+			</div>
+		</div>
+	</nav>
+	<article class="media">
+		<div class="media-content">
+			<div class="content">
+				<p class="title is-size-4 is-size-5-mobile"><a href="{% url 'story:draft' draft.title draft.id %}">{{draft.title|truncatechars:90|escape}}</a></p>
+				<p class="subtitle is-size-6" style="padding-top: 10px;"><form action="{% url 'story:publish' draft.id %}" method="POST" >{% csrf_token %}<button type="submit"  class="button is-success is-rounded is-small">Publish</button></form></p>
+			</div>
+		</div>
+        {% if draft.cover %}
+		<div class="media-right">
+			<figure class="image is-64x64">
+			 <img style="object-fit:cover; width:64px; height:64px;" src="{{draft.cover.url}}">
+			</figure>
+		</div>
+        {% endif %}
+	</article>
+</div>
+{% empty %}
+		<center>
+		   <img src="{% static 'images/empty-folder.png' %}" style="height: 100px; width: 100px;">
+		   <br>No drafts.
+		</center>
+{% endfor %}
+</div>
+</div>
+
+{% endblock content %}

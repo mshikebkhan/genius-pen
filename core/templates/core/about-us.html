@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<center>
+	<div style="border: 2px solid #3298DC; height: auto; padding-bottom: 50px;">
+
+		<p class="title is-size-5 is-size-6-mobile" style="color: white; background-color: #3298DC; padding: 5px; "> <b>Welcome to GeniusPen!</b> </p>
+		<p class="title is-size-4">[ About Genius Pen ]</p>
+
+		<div style="border: 2px solid #3298DC; height: auto; width: 95%; padding-bottom: 20px; ">
+			<p class="title is-size-5 is-size-6-mobile" style="color: white; background-color: #3298DC; padding: 5px; "> <b>The project</b> </p>
+			<p class="title is-size-5 is-size-6-mobile">GeniusPen is an online simple and easy to use blogging platform that allow people to share their ideas and their life moments with a huge community.</p>
+		</div>
+
+		<div style="border: 2px solid #3298DC; margin-top: 20px; height: 120px; width: 95%; ">
+			<p class="title is-size-5 is-size-6-mobile" style="color: white; background-color: #3298DC; padding: 5px; "> <b>The people</b> </p>
+			<p class="title is-size-4 is-size-6-mobile"><span style="color: blue;">Shikeb Khan<span> <span style="color: black"> - Developer & Designer<span></p>
+
+        </div>
+
+    </div>
+
+    
+</center>
+
+<footer class="footer" style="padding: 0; margin-top: 20px;">
+  <div class="content has-text-centered">
+GeniusPen © 2021. All rights reserved. - <a href="{% url 'core:privacy-policy' %}" >Privacy Policy</a> - <a href="{% url 'core:terms-and-conditions' %}" >Terms and Conditions</a>
+  </div>
+</footer>
+
+{% endblock content %}

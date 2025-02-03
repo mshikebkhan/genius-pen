@@ -1,0 +1,176 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+{% if anchor %}
+<script type='text/javascript'>
+
+$(document).ready(function(){
+         $('html, body').animate({
+              scrollTop: $("#id_comment_{{anchor}}").offset().top - 85
+        }, 1000);   
+});
+</script>
+{% endif %}
+
+
+<div class="columns is-centered ">
+
+
+<div class="column is-half is-wider">
+
+{% if story.visibility == 'Private' and story.user != request.user %}
+<center><p class="title is-size-5 is-size-6-mobile">Comments for the story are hidden because the story is private</p></center>
+<hr>
+{% else %}
+
+
+<p class="title is-5"><a href="{% url 'story:story' story.title story.id %}">🡸 Story</a></p>
+
+
+	<div class="box" style="border-radius: 10px;">
+
+<div class="story-div">
+  <nav class="level is-mobile" style="margin-bottom:5px;">
+    <div class="level-left">
+      <div class="level-item">
+        <figure class="image is-32x32">
+          {% if story.user != request.user %}
+    <a href="{% url 'users:user-profile' story.user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}          
+         <img class="profile_pic"  style="width:32px; height:32px; border: 1px solid #2176D3;" src="{{story.user.profile.profile_pic.url}}">
+       </a>
+        </figure>
+      </div>
+      <div class="level-item">
+        <p class="title is-size-6">
+          {% if story.user != request.user %}
+    <a href="{% url 'users:user-profile' story.user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+          {{story.user.first_name}} {{story.user.last_name}}
+</a>
+           · <span style="color: grey;">{{story.date_created|date}}</span></p>
+      </div>
+    </div>
+  </nav>
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <p class="title is-size-4 is-size-5-mobile">{{story.title|truncatechars:90}}</p>
+        <p class="subtitle is-size-6" style="padding-top: 10px;"><small>Views {{story.views}} · Likes {{story.likes}} · Comments <sapn id="id_comments_count">{{story.comments_count}}</sapn></small></p>
+      </div>
+    </div>
+        {% if story.cover %}
+    <div class="media-right">
+      <figure class="image is-64x64">
+       <img style="object-fit:cover; width:64px; height:64px;" src="{{story.cover.url}}">
+      </figure>
+    </div>
+        {% endif %}
+  </article>
+</div>
+	</div>
+</div>
+</div>
+<br>
+<div class="columns is-centered">
+<div class="column is-half is-wider">
+
+<form id="id_add_comment_form">
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img class="profile_pic" style="width:64px; height:64px; border: 1px solid #2176D3;" src="{{request.user.profile.profile_pic.url}}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="field">
+      <p class="control">
+        <textarea required id="id_comment_body" class="textarea" placeholder="Add a comment..." maxlength="500"></textarea>
+      </p>
+    </div>
+ <a id="id_add_comment_submit_button" name="{{story.id}}" onclick="AddComment(this)" class="button is-success">Post comment</a>
+</div>
+</article>
+</form>
+<hr>
+
+<div id="id_for_empty"></div>
+
+{% for comment in comments %}
+<div id="id_new_comment"></div>
+<div class="box" id="id_comment_{{comment.id}}" 
+
+ style="
+  
+        border-radius: 10px;
+        {% if comment.id == anchor %}
+        border-color: yellow; border-style: solid;
+        {% endif %}
+
+"
+>
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+    {% if comment.user != request.user %}
+    <a href="{% url 'users:user-profile' comment.user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+      <img class="profile_pic" style="width:64px; height:64px; border: 1px solid #2176D3;" src="{{comment.user.profile.profile_pic.url}}">
+      </a>
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>
+    {% if comment.user != request.user %}
+    <a href="{% url 'users:user-profile' comment.user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">
+    {% endif %}         
+        {{comment.user.first_name}} {{comment.user.last_name}}
+        </a>
+        </strong> <small>
+          <span class="icon is-small"><i class="fa fa-clock-o"></i></span> {{comment.date_created|timesince}} ago
+        </small>
+        <br>
+        {{comment.body}}
+        <br>
+        <small>
+        	<a  href="{% url 'story:replies' comment.id %}"><span class="icon is-small"><i class="fa fa-reply"></i></span> Replies {{comment.replies_count}}</a>
+        </small>
+      </p>
+    </div>
+</div> 
+<div class="media-right">
+{% if comment.user == request.user %}
+    <button name={{comment.id}} onclick="DeleteComment(this)" class="delete"></button>
+  {% else %}
+  {% if not comment.reported %}
+  <a onclick="ReportComment(this)" name={{comment.id}} id="id_report_comment_a_{{comment.id}}" style="color: #4A4A4A;"><i id="id_report_comment_icon_{{comment.id}}" class="fa fa-flag-o"></i></a>
+  {% else %}
+  <a class="is-idle" style="color: #4A4A4A;"><i  class="fa fa-flag"></i></a>
+  {% endif %}
+  {% endif %}
+  </div>
+</article>
+</div>
+
+{% empty %}
+<center>
+<p id="id_empty_text" class="title is-size-4">No comments</p>
+</center>
+{% endfor %}
+
+{% endif %}
+
+</div>
+</div>
+
+{% endblock content %}

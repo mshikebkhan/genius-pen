@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+
+{% if messages %}
+{% for message in messages %}
+<article class="message is-{{message.tags}}">
+<div class="message-body">
+  {{message}}
+</div>
+</article>
+{% endfor %}
+{% endif %}
+
+<span class="title is-size-4">Saved stories</span><span class="is-pulled-right title is-size-5">
+{{saved_stories_count}}</span>
+<hr>
+
+<br>
+
+
+<div class="columns is-centered">
+<div class="column is-half">
+
+{% for story in stories %}
+
+{% include 'story/story-div.html'  %}
+
+{% empty %}
+    <center>
+       <img src="{% static 'images/empty-folder.png' %}" style="height: 100px; width: 100px;">
+       <br>No saved stories.
+    </center>
+{% endfor %}
+</div>
+</div>
+
+
+
+{% endblock %}

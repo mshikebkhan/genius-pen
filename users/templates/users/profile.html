@@ -1,0 +1,120 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+
+{% if messages %}
+    {% for message in messages %}
+<article class="message is-{{message.tags}}">
+  <div class="message-body">
+    {{message}}
+  </div>
+</article>
+       {% endfor %}
+       {% endif %}
+
+<p class="title is-size-4 is-size-5-mobile">@{{profile.user}}&nbsp{% if profile.verified %}<i class="fa fa-check-circle" style="color: #2176D3;" aria-hidden="true"></i>
+{% endif %}
+    <span class="is-pulled-right">
+        {% if profile.user == request.user %}
+        <button class="button is-rounded is-light is-small">
+        <a style="color: #4A4A4A;" href="{% url 'users:edit-profile' %}"><b>Edit profile</b></a>
+        </button>
+        {% else %}
+
+    {% if profile.user in following_users %}
+    <button onclick="FollowUser(this)" id="id_follow_user_button_{{profile.user.id}}" name="{{profile.user.id}}" class="button is-rounded is-info is-small"><b>Following</b></button>
+    {% else %}
+    <button onclick="FollowUser(this)" id="id_follow_user_button_{{profile.user.id}}" name="{{profile.user.id}}" class="button is-rounded is-light is-small"><b>Follow</b></button>
+
+        {% endif %}
+        {% endif %}
+    </span> 
+</p>
+<hr>
+<center>
+	<figure class="image is-128x128">
+        <img class="profile_pic"  style="border: 2px solid #2176D3; width: 128px; height: 128px;" src="{{profile.profile_pic.url}}"> 
+    </figure>
+    <p class="title is-size-4 is-size-5-mobile" style="padding-top: 10px;">{{profile.user.first_name}} {{profile.user.last_name}}</p>
+    {% if profile.bio %}
+    <p class="subtitle is-size-6" style="max-width: 600px;">{{profile.bio}}</p>
+{% endif %}
+{% if profile.facebook or profile.twitter or profile.instagram or profile.youtube %}
+<span class="profile_card_social_urls">
+  {% if profile.facebook %}
+<a href="{{profile.facebook}}"><i class="fa fa-facebook"></i></a>
+{% endif %}
+{% if profile.twitter %}
+<a href="{{profile.twitter}}"><i class="fa fa-twitter"></i></a>
+{% endif %}
+{% if profile.instagram %}
+<a href="{{profile.instagram}}"><i class="fa fa-instagram"></i></a>
+{% endif %}
+{% if profile.youtube %}
+<a href="{{profile.youtube}}"><i class="fa fa-youtube"></i></a>
+{% endif %}
+</span>
+{% endif %}
+
+
+</center>
+<center>
+
+<hr>
+<nav class="level is-mobile">
+    <div class="level-item has-text-centered">
+        <div>
+            <p class="heading">Stories</p>
+            <p class="title is-4">{{profile.stories_count}}</p>
+        </div>
+    </div>
+    <div class="level-item has-text-centered">
+        <div>
+            <p class="heading">
+                {% if profile.user == request.user %}
+            <a style="color: #4A4A4A;" href="{% url 'users:followers' %}">Followers</a>
+            {% else %}
+            <a style="color: #4A4A4A;" href="{% url 'users:user-followers' profile.user %}">Followers</a>
+            {% endif %}
+            </p>
+            <p id="id_followers_count" class="title is-4">{{profile.followers_count}}</p>
+        </div>
+    </div>
+    <div class="level-item has-text-centered">
+        <div>
+            <p class="heading">
+                {% if profile.user == request.user %}
+            <a style="color: #4A4A4A;" href="{% url 'users:following' %}">Following</a>
+            {% else %}
+            <a style="color: #4A4A4A;" href="{% url 'users:user-following' profile.user %}">Following</a>
+            {% endif %}
+            </p>
+            <p class="title is-4">{{profile.following_count}}</p>
+        </div>
+    </div>
+</nav>
+</center>
+
+<hr>
+<br>
+
+
+<div class="columns is-centered">
+<div class="column is-half">
+
+{% for story in stories %}
+
+{% include 'story/story-div.html'  %}
+{% empty %}
+        <center>
+           <img src="{% static 'images/empty-folder.png' %}" style="height: 100px; width: 100px;">
+           <br>No published stories.
+        </center>
+{% endfor %}
+</div>
+</div>
+
+
+
+
+{% endblock content %}

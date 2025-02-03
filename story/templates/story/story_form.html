@@ -1,0 +1,160 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+
+
+
+<script src="{% static 'js/AddCoverImage.js' %}"></script>   
+<script src="{% static 'js/WaterMarkRemover.js' %}"></script>
+
+
+{% if messages %}
+    {% for message in messages %}
+<article class="message is-{{message.tags}}">
+  <div class="message-body">
+    {{message}}
+  </div>
+</article>
+       {% endfor %}
+       {% endif %}
+
+<p class="title is-size-5">{{mod}}</p>
+<hr>
+
+
+<form  method="post" enctype="multipart/form-data">
+    {% csrf_token %} 
+ <center>
+
+<figure>
+
+      <img style='max-height: 400px; width: auto' id="id_add_cover_preview" 
+
+      {% if form.cover.value.url != "" %}
+        src="{{form.cover.value.url}}">
+        {% else %}
+      src="{% static 'images/add-cover.jpg' %}">  
+        {% endif %}
+ </figure>
+ </center>
+<br>
+
+<div class="file is-centered is-primary" >
+  <label >
+    <input class="file-input"  name="cover"  accept="image/*"  id="id_add_cover" type="file">
+    <span class="file-cta">
+      <span class="file-icon">
+        <i class="material-icons">image</i>
+      </span>
+      <span class="file-label" id="id_add_cover_label">
+        {% if form.cover.value.url != "" %}
+        Change
+        {% else %}
+        Add
+        {% endif %}
+      </span>
+    </span>
+   <p>
+        {% if form.cover.errors %}
+    <ul>
+    {% for error in form.cover.errors %}
+        <li class="help is-danger">{{ error|escape }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+      </p>
+  </label>
+</div> 
+
+<br>
+
+
+<input style="font-weight: bold;" placeholder="An attractive title" class="input is-large" type="text" name="title" value="{{form.title.value|default_if_none:''}}" maxlength="100" required id="id_title">
+
+
+  <p>
+        {% if form.title.errors %}
+    <ul>
+    {% for error in form.title.errors %}
+        <li class="help is-danger">{{ error|escape }}</li>
+    {% endfor %}
+    </ul>
+}
+}
+{% endif %}
+      </p>
+
+<br>
+<br>
+
+
+{{form.media}} 
+{{form.content}}
+
+   <p>
+        {% if form.content.errors %}
+    <ul>
+    {% for error in form.content.errors %}
+        <li class="help is-danger">{{ error|escape }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+      </p>
+
+
+{% include 'story/text-editor.html' %}
+
+<br>
+<br>
+
+
+    <label class="label">Category:</label>
+
+      <div class="control is-expanded">
+        <div class="select is-fullwidth">
+		{{form.category}}
+        </div>
+      </div>
+
+   <p>
+        {% if form.category.errors %}
+    <ul>
+    {% for error in form.category.errors %}
+        <li class="help is-danger">{{ error|escape }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+      </p>
+
+<br>
+
+    <label class="label">Visibility:</label>
+
+      <div class="control is-expanded">
+        <div class="select is-fullwidth">
+    {{form.visibility}}
+        </div>
+      </div>
+
+
+   <p>
+        {% if form.visibility.errors %}
+    <ul>
+    {% for error in form.visibility.errors %}
+        <li class="help is-danger">{{ error|escape }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+      </p>
+
+<br>
+<br>
+<center>
+<button type="submit" class="button is-success">Save</button>
+</center>
+</form>
+
+
+
+
+{% endblock content %}

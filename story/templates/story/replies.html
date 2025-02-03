@@ -1,0 +1,175 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+{% if anchor %}
+<script type='text/javascript'>
+
+$(document).ready(function(){
+         $('html, body').animate({
+              scrollTop: $("#id_reply_{{anchor}}").offset().top - 85
+        }, 1000);   
+});
+</script>
+{% endif %}
+
+
+
+<div class="columns is-centered ">
+<div class="column is-half is-wider" >
+
+{% if comment.story.visibility == 'Private' and comment.story.user != request.user %}
+<center><p class="title is-size-5 is-size-6-mobile">Replies for the comment are hidden because the story is private</p></center>
+<hr>
+{% else %}
+
+<p class="title is-5"><a href="{% url 'story:comments' comment.story.id %}">🡸 Comments</a></p>
+
+<div class="box" style="border-radius: 10px;">
+
+<div id="id_new_comment">
+<article class="media" id="id_comment_{{comment.id}}">
+  <figure class="media-left">
+    <p class="image is-64x64">
+    {% if comment.user != request.user %}
+    <a href="{% url 'users:user-profile' comment.user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+      <img class="profile_pic" style="width:64px; height:64px; border: 1px solid #2176D3;" src="{{comment.user.profile.profile_pic.url}}">
+      </a>
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>
+    {% if comment.user != request.user %}
+    <a href="{% url 'users:user-profile' comment.user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">
+    {% endif %}         
+        {{comment.user.first_name}} {{comment.user.last_name}}
+        </a>
+        </strong> <small>
+          <span class="icon is-small"><i class="fa fa-clock-o"></i></span> {{comment.date_created|timesince}} ago
+        </small>
+        <br>
+        {{comment.body}}
+        <br>
+        <small>
+          <span class="icon is-small"><i class="fa fa-reply"></i></span> Replies <sapn id="id_replies_count">{{comment.replies_count}}</sapn>
+        </small>
+      </p>
+    </div>
+</div> 
+<div class="media-right">
+{% if comment.user == request.user %}
+    <button name={{comment.id}} onclick="DeleteComment(this)" class="delete"></button>
+  {% else %}
+  {% if not comment.reported %}
+  <a onclick="ReportComment(this)" name={{comment.id}} id="id_report_comment_a_{{comment.id}}" style="color: #4A4A4A;"><i id="id_report_comment_icon_{{comment.id}}" class="fa fa-flag-o"></i></a>
+  {% else %}
+  <a class="is-idle" style="color: #4A4A4A;"><i  class="fa fa-flag"></i></a>
+  {% endif %}
+  {% endif %}
+  </div>
+</article>
+</div>
+
+
+	</div>
+</div>
+</div>
+<br>
+<div class="columns is-centered">
+<div class="column is-half is-wider">
+<form id="id_add_reply_form">
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img class="profile_pic" style="width:64px; height:64px; border: 1px solid #2176D3;" src="{{request.user.profile.profile_pic.url}}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="field">
+      <p class="control">
+        <textarea required id="id_reply_body" class="textarea" placeholder="Add a reply..." maxlength="500"></textarea>
+      </p>
+    </div>
+ <a id="id_add_reply_submit_button" name="{{comment.id}}" onclick="AddReply(this)" class="button is-success">Post reply</a>
+</div>
+</article>
+</form>
+<hr> 
+
+<div id="id_for_empty"></div>
+
+{% for reply in replies %}
+<div id="id_new_reply"></div>
+<div id="id_reply_{{reply.id}}"  class="box"  style="
+  
+        border-radius: 10px;
+        {% if reply.id == anchor %}
+        border-color: yellow; border-style: solid;
+        {% endif %}
+
+"
+>
+<article class="media" >
+  <figure class="media-left">
+    <p class="image is-64x64">
+    {% if reply.user != request.user %}
+    <a href="{% url 'users:user-profile' reply.user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+      <img class="profile_pic" style="width:64px; height:64px; border: 1px solid #2176D3;" src="{{reply.user.profile.profile_pic.url}}">
+      </a>
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>
+    {% if reply.user != request.user %}
+    <a href="{% url 'users:user-profile' reply.user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">
+    {% endif %}         
+        {{reply.user.first_name}} {{reply.user.last_name}}
+        </a>
+        </strong> <small>
+          <span class="icon is-small"><i class="fa fa-clock-o"></i></span> {{reply.date_created|timesince}} ago
+        </small>
+        <br>
+        {{reply.body}}
+      </p>
+    </div>
+</div> 
+<div class="media-right">
+{% if reply.user == request.user %}
+    <button name={{reply.id}} onclick="DeleteReply(this)" class="delete"></button>
+  {% else %}
+  {% if not reply.reported %}
+  <a onclick="ReportReply(this)" name={{reply.id}} id="id_report_reply_a_{{reply.id}}" style="color: #4A4A4A;"><i id="id_report_reply_icon_{{reply.id}}" class="fa fa-flag-o"></i></a>
+  {% else %}
+  <a class="is-idle" style="color: #4A4A4A;"><i  class="fa fa-flag"></i></a>
+  {% endif %}
+  {% endif %}
+  </div>
+</article>
+</div>
+
+
+{% empty %}
+<center>
+<p id="id_empty_text" class="title is-size-4">No replies</p>
+</center>
+{% endfor %}
+
+{% endif %}
+
+</div>
+</div>
+
+{% endblock content %}

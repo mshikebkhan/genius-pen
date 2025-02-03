@@ -1,0 +1,58 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<p class="title is-size-4 is-size-5-mobile" style="color: white; background-color: #3298DC; padding: 15px; border-radius: 5px;" ><b>Customize your interest</b></p>
+
+<div class="columns is-multiline">
+{% for category in categories %}
+<div class="column is-one-third">
+
+<div class="card">
+
+  <div class="card-image">
+    <figure class="image is-2by1">
+      <a href="{% url 'story:category' category.title %}"><img src="{{category.cover.url}}" style="object-fit: cover;" alt="Placeholder image"></a>
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="content">
+        <center>
+    <p class="title is-size-4 is-size-5-mobile"><a href="{% url 'story:category' category.title %}">{{category.title}}</a></p>
+</center>
+    </div>
+  </div>
+
+<center>
+
+{% if category in interest_categories %}
+
+<button onclick="FollowCategory(this)" id="id_follow_category_button_{{category.id}}" name="{{category.id}}" class="button is-info">
+  <span class="icon-text">
+  <span class="icon">
+<i id="id_follow_category_icon_{{category.id}}" class="material-icons">check_circle</i>
+  </span>
+  <span id="id_follow-category_span_{{category.id}}">Following</span>
+</span></button>
+
+{% else %}
+
+<button onclick="FollowCategory(this)" id="id_follow_category_button_{{category.id}}" name="{{category.id}}" class="button is-light">
+  <span class="icon-text">
+  <span class="icon">
+<i id="id_follow_category_icon_{{category.id}}" class="material-icons">add</i>
+  </span>
+  <span id="id_follow_category_span_{{category.id}}">Follow</span>
+</span></button>
+
+{% endif %}
+
+</center>
+
+<br>
+</div>
+
+</div>
+{% endfor %}
+</div>
+
+{% endblock content %}

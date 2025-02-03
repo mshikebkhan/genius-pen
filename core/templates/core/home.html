@@ -1,0 +1,139 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+
+      {% if user.is_authenticated %}
+
+<div class="columns is-centered">
+	<div class="column is-half is-wider" >
+
+		
+
+		{% for story in stories %}
+
+		{% include 'story/story-div.html'  %}
+		{% empty %}
+		<center>
+		   <img src="{% static 'images/empty-folder.png' %}" style="height: 100px; width: 100px;">
+		   <br>Follow users and categories to see stories from them.
+		</center>
+		<br>
+		{% endfor %}
+
+	</div>
+</div>
+
+{% else %}
+
+
+<section class="hero is-medium is-info" style="border-radius: 20px;">
+  <div class="hero-body">
+<div class="columns">
+	<div class="column is-half">
+    <p class="title is-size-1 is-size-3-mobile">
+      <b>Write with passion!</b>
+    </p>
+    <p class="subtitle is-size-5-mobile" style="margin-top: 1px;">
+       <b>Welcome to a unique blogging experience. Easy, simple, free, and all features that you need to share your thoughts, ideas, and life experience are included.</b>
+       <br><br><a href="{% url 'users:login'%}" class="button"><b>Log in</b></a> <a href="{% url 'users:signup'%}" class="button is-outlined is-light"><b>Sign up</b></a>
+    </p>
+
+	</div>
+	<div class="column"> 
+		<center>
+			<figure>
+				<img src="{% static 'images/write.png' %}" style="object-fit: cover; max-height:200px">
+			</figure>
+		</center>
+	</div>
+	</div>
+</div>
+</section>
+<br>
+<section class="hero is-medium is-light" style="border-radius: 20px;">
+  <div class="hero-body">
+<div class="columns">
+	<div class="column is-half">
+		<center>
+			<figure>
+				<img src="{% static 'images/confuse.png' %}" style="object-fit: cover; max-height:200px">
+			</figure>
+		</center>		
+	</div>
+	<div class="column is-half"> 
+    <p class="title is-size-1 is-size-3-mobile">
+      <b>Why GeniusPen?</b>
+    </p>
+    <p class="subtitle is-size-5-mobile" style="margin-top: 1px;">
+       <b>The GeniusPen has a lot of features that make it the best among all blogging platforms. Look at our feature list below: 
+       </b>
+    </p>
+	</div>
+	</div>
+</div>
+</section>
+<br>
+<div class="columns is-centered is-multiline">
+
+	<div class="column is-half has-text-centered">
+		<div class="box" style="border-radius: 20px; ">
+			<figure>
+				<img src="{% static 'images/easy.jpg' %}" style="object-fit: cover; height:300px">
+			</figure>
+			<br>
+		<p class="title">Simple and easy</p>
+		<p class="subtitle is-size-5 is-size-6-mobile" style="padding-top: 10px;">GeniusPen has a very simple and easy-to-use interface. Just login/signup --> create story --> publish</p>
+		</div>
+	</div>
+
+	<div class="column is-half has-text-centered">
+		<div class="box" style="border-radius: 20px; ">
+			<figure>
+				<img src="{% static 'images/user-ex.jpg' %}" style="object-fit: cover; height:300px">
+			</figure>
+			<br>
+		<p class="title">Flexible user experince</p>
+		<p class="subtitle is-size-5 is-size-6-mobile" style="padding-top: 10px;">Follow users or categories of your choice and make your personalized. Get notifications of new stories from the users you follow.</p>
+		</div>
+	</div>
+
+	<div class="column is-half has-text-centered">
+		<div class="box" style="border-radius: 20px; ">
+			<figure>
+				<img src="{% static 'images/interect.png' %}" style="object-fit: cover; height:300px">
+			</figure>
+			<br>
+		<p class="title">Interect with content</p>
+		<p class="subtitle is-size-5 is-size-6-mobile" style="padding-top: 10px;">
+			Save the story which you want to read later.<br>
+			+ Ability to like, comment, and reply to user's content. It makes a good bond between the creator and the audience.</p>
+		</div>
+	</div>
+
+	<div class="column is-half has-text-centered">
+		<div class="box" style="border-radius: 20px; ">
+			<figure>
+				<img src="{% static 'images/updating.png' %}" style="object-fit: cover; height:300px">
+			</figure>
+			<br>
+		<p class="title">We are Updating</p>
+		<p class="subtitle is-size-5 is-size-6-mobile" style="padding-top: 10px;">GeniusPen is new and trying to make users' experience the best as much it could. keep patience new features are on the way.</p>
+		</div>
+	</div>
+
+
+	<div class="column is-half has-text-centered">
+		<div class="box" style="border-radius: 20px; ">
+			<figure>
+				<img src="{% static 'images/free.png' %}" style="object-fit: cover; height:300px">
+			</figure>
+			<br>
+		<p class="title">100% free</p>
+		<p class="subtitle is-size-5 is-size-6-mobile" style="padding-top: 10px;">The GeniusPen is a completely free platform for all. No premium or any type of subscription or fee required. Get a free account and enjoy without any limit.</p>
+		</div>
+	</div>
+
+</div>
+{% endif %}
+
+{% endblock content %}

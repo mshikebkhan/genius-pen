@@ -1,0 +1,66 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<article class="message is-{{message.tags}}">
+<div class="message-body">
+  {{message}}
+</div>
+</article>
+{% endfor %}
+{% endif %}
+
+<div style="background-color:#EFF5FB; padding: 10px;">
+
+<center><p style="color: #3E8ED0" class="title is-size-4 is-size-5-mobile">{{category.title}}</p></center>
+<br>
+<center>
+
+{% if category in interest_categories %}
+
+<button onclick="FollowCategory(this)" id="id_follow_category_button_{{category.id}}" name="{{category.id}}" class="button is-info">
+  <span class="icon-text">
+  <span class="icon">
+<i id="id_follow_category_icon_{{category.id}}" class="material-icons">check_circle</i>
+  </span>
+  <span id="id_follow_category_span_{{category.id}}">Following</span>
+</span></button>
+
+{% else %}
+
+<button onclick="FollowCategory(this)" id="id_follow_category_button_{{category.id}}" name="{{category.id}}" class="button is-light">
+  <span class="icon-text">
+  <span class="icon">
+<i id="id_follow_category_icon_{{category.id}}" class="material-icons">add</i>
+  </span>
+  <span id="id_follow_category_span_{{category.id}}">Follow</span>
+</span></button>
+
+{% endif %}
+</center>
+
+</div>
+
+<hr class="navbar-divider">
+<br>
+
+
+<div class="columns is-centered">
+<div class="column is-half">
+
+{% for story in stories %}
+
+{% include 'story/story-div.html'  %}
+
+{% empty %}
+<center>
+<p class="title is-4">No stories</p>
+</center>
+{% endfor %}
+</div>
+</div>
+
+
+
+{% endblock %}

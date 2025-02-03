@@ -1,0 +1,193 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+{% if messages %}
+{% for message in messages %}
+<article class="message is-{{message.tags}}">
+<div class="message-body">
+  {{message}}
+</div>
+</article>
+{% endfor %}
+{% endif %}
+
+
+<div>
+<span class="title is-size-5">Notifications {{notifications_count}}</span><span class="is-pulled-right title is-size-5">
+
+  <form action="{% url 'notifications:clear-notifications' %}" method="POST" >
+  {% csrf_token %}
+  <button onclick="return confirm('Do you really want to clear your all notifications?')" type="submit" class="button is-small is-light is-rounded"><b>Clear</b></button>
+  </form>
+
+</span>
+</div>
+<hr/>
+<br>
+
+<div>
+
+<div class="columns is-centered">
+    <div class="column is-half is-wider">
+
+{% for notification in notifications %}
+
+{% if notification.notification_type == 1 %}
+
+        <div class="notification" style="border-radius: 10px;" >
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        <a href="{% url 'users:user-profile' notification.sender %}">
+                        <img src="{{notification.sender.profile.profile_pic.url}}" class="profile_pic" style="width: 64px; height: 64px;">
+                        </a>
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <a href="{% url 'users:user-profile' notification.sender %}" style="text-decoration: none;">
+                        <strong>{{notification.sender.first_name}} {{notification.sender.last_name}}</strong>@{{notification.sender}}
+                    </a>
+                        <br>
+                        Liked your story:
+                        <p><small><u>
+                        <a href="{% url 'story:story' notification.story.title  notification.story.id  %}" style="text-decoration: none;">                          {{notification.story.title|truncatechars:65}}
+                        </a>
+                        </u></small></p>
+                        <strong><small>{{notification.date_created|timesince}} ago</small></strong>
+                    </div>
+                </div>
+            </article>
+        </div>
+{% endif %}
+
+{% if notification.notification_type == 2 %}
+
+
+        <div class="notification"  style="border-radius: 10px;">
+<a href="{% url 'story:comments' notification.story.id notification.comment.id  %}" style="text-decoration: none;">            
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        <img src="{{notification.sender.profile.profile_pic.url}}" class="profile_pic" style="width: 64px; height: 64px;">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <strong>{{notification.sender.first_name}} {{notification.sender.last_name}}</strong>@{{notification.sender}}
+                        <br>
+                        Commented:
+                        <p><small>"{{notification.preview|truncatechars:65}}"</small></p>
+                        <strong><small>{{notification.date_created|timesince}} ago</small></strong>
+                    </div>
+
+                </div>
+                {% if notification.story.cover %}
+                <div class="media-right">
+                    <figure class="image is-64x64" style="object-cover: fit;">
+                        <img src="{{notification.story.cover.url}}">
+                    </figure>
+                </div>
+                {% endif %}
+
+            </article>
+</a>
+        </div>
+
+{% endif %}
+
+{% if notification.notification_type == 3 %}
+
+        <div class="notification"  style="border-radius: 10px;">
+<a href="{% url 'story:replies' notification.comment.id notification.reply.id  %}" style="text-decoration: none;">                 
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        <img src="{{notification.sender.profile.profile_pic.url}}" class="profile_pic" style="width: 64px; height: 64px;">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <strong>{{notification.sender.first_name}} {{notification.sender.last_name}}</strong>@{{notification.sender}}
+                        <br>
+                        Replied:
+                        <p><small>"{{notification.preview|truncatechars:65}}"</small></p>
+                        <strong><small>{{notification.date_created|timesince}} ago</small></strong>
+                    </div>
+
+                </div>
+                {% if notification.story.cover %}
+                <div class="media-right">
+                    <figure class="image is-64x64" style="object-cover: fit;">
+                        <img src="{{notification.story.cover.url}}">
+                    </figure>
+                </div>
+                {% endif %}
+            </article>
+</a>
+        </div>
+
+{% endif %}
+
+{% if notification.notification_type == 4 %}
+
+        <div class="notification"  style="border-radius: 10px;">
+
+<a href="{% url 'users:user-profile' notification.sender  %}" style="text-decoration: none;">                 
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        <img src="{{notification.sender.profile.profile_pic.url}}" class="profile_pic" style="width: 64px; height: 64px;">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <strong>{{notification.sender.first_name}} {{notification.sender.last_name}}</strong>@{{notification.sender}}
+                        <br>
+                        Started following you
+                        <br>
+                        <strong><small>{{notification.date_created|timesince}} ago</small></strong>
+                    </div>
+                </div>
+            </article>
+        </a>
+        </div>
+
+{% endif %}
+
+
+{% if notification.notification_type == 5 %}
+
+        <div class="notification"  style="border-radius: 10px;">
+<a href="{% url 'story:story' notification.story.title  notification.story.id  %}" style="text-decoration: none;">            
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        <img src="{{notification.sender.profile.profile_pic.url}}" class="profile_pic" style="width: 64px; height: 64px;">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <strong>{{notification.sender.first_name}} {{notification.sender.last_name}}</strong>@{{notification.sender}}
+                        <br>
+                        Published new story:
+                        <p><small><u>{{notification.story.title|truncatechars:65}}</u></small></p>
+                        <strong><small>{{notification.date_created|timesince}} ago</small></strong>
+                    </div>
+                </div>
+                
+            </article>
+        </a>
+        </div>
+{% endif %}
+
+
+{% empty %}
+
+        <center>
+           <img src="{% static 'images/empty-notifications.png' %}" style="height: 100px; width: 90px;">
+           <br>No unread notifications.
+        </center>
+
+{% endfor %}
+{% endblock  %}

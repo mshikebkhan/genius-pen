@@ -1,0 +1,100 @@
+{% load static %}
+
+<nav class="navbar  is-fixed-top has-shadow" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="{% url 'core:home' %}">
+      <img src="{% static 'images/logo.png'%}" width="112" height="28">
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+<div id="navbarBasicExample" class="navbar-menu">
+
+	<div class="navbar-start">
+
+		<a class="navbar-item" href="{% url 'users:profile' %}">
+      {% if user.is_authenticated %}
+      <figure class="image is-32x32">
+      <img class="profile_pic" style="width: 28px; height: 28px; border: 1px solid #2176D3;" src="{{request.user.profile.profile_pic.url}}" >
+    </figure>
+      <strong style="color: #4A4A4A;">Hi, {{request.user.first_name}}</strong>       
+      {% else %}
+      <i style="color: #4A4A4A;" class="material-icons">face</i>
+      <strong style="color: #4A4A4A;">Profile</strong>      
+      {% endif %}
+    </a>
+
+		<a href="{% url 'notifications:notifications' %}" class="navbar-item">
+      <i style="color: #4A4A4A;" class="material-icons">notifications</i>
+      <strong style="color: #4A4A4A;">Notifications</strong>
+        {% if count_notifications %}
+          &nbsp<span class="tag is-rounded is-danger"><b>{{ count_notifications }}</b></span>
+        {% endif %}      
+    </a>
+
+		<a class="navbar-item" href="{% url 'story:drafts' %}">
+      <i style="color: #4A4A4A;" class="material-icons">note</i>
+      <strong style="color: #4A4A4A;">Drafts</strong>
+    </a>    
+
+		<a class="navbar-item" href="{% url 'story:create-story' %}">
+      <i style="color: #4A4A4A;" class="material-icons">create</i>
+      <strong style="color: #4A4A4A;">Create story</strong>
+    </a>  
+
+		<div class="navbar-item has-dropdown is-hoverable">
+			<a class="navbar-link"></a>
+      <div class="navbar-dropdown">
+        <a href="{% url 'story:saved-stories' %}" class="navbar-item"> 
+          <i class="material-icons">bookmarks</i> 
+          <strong style="color: #4A4A4A;">Saved stories</strong> 
+        </a>
+
+        <a href="{% url 'story:read-history' %}" class="navbar-item"> 
+          <i class="material-icons">schedule</i>&nbsp 
+          <strong style="color: #4A4A4A;">Read history</strong> 
+        </a>
+
+        <a href="{% url 'story:interest' %}" class="navbar-item">
+          <i style="color: #4A4A4A;" class="material-icons">book</i> 
+          <strong style="color: #4A4A4A;">Interest</strong>
+         </a>
+
+        <hr class="navbar-divider">
+
+        <a class="navbar-item" href="{% url 'core:about-us' %}">
+          <i class="material-icons">info</i>
+          <strong style="color: #4A4A4A;">About us</strong>
+        </a>
+
+      </div>
+		</div>
+
+	</div>
+	<div class="navbar-end">
+    {% if user.is_authenticated %}
+    <div class="navbar-item">
+        <a href="{% url 'users:logout' %}">Log out</a>
+    </div>
+
+    {% else %}
+
+    <div class="navbar-item">
+        <a href="{% url 'users:login' %}" class="button is-info">Log in</a>
+    </div>
+
+    <div class="navbar-item">
+        <a href="{% url 'users:signup' %}" class="button is-light">Sign up</a>
+    </div>
+
+    {% endif %} 
+
+	</div>
+</div>
+
+</nav>

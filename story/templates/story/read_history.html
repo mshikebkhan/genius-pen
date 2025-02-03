@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+
+{% if messages %}
+{% for message in messages %}
+<article class="message is-{{message.tags}}">
+<div class="message-body">
+  {{message}}
+</div>
+</article>
+{% endfor %}
+{% endif %}
+
+<div>
+<span class="title is-size-4">Read history</span><span class="is-pulled-right title is-size-5">
+
+  <form action="{% url 'story:clear-read-history' %}" method="POST" >
+  {% csrf_token %}
+  <button onclick="return confirm('Do you really want to clear your read history?')" type="submit" class="button is-small is-light is-rounded"><b>Clear</b></button>
+  </form>
+
+</span>
+</div>
+<hr>
+
+<br>
+
+
+<div class="columns is-centered">
+<div class="column is-half">
+
+{% for story in stories %}
+
+{% include 'story/story-div.html'  %}
+
+{% empty %}
+    <center>
+       <img src="{% static 'images/empty-folder.png' %}" style="height: 100px; width: 100px;">
+       <br>Recently read stories appear here.
+    </center>
+{% endfor %}
+</div>
+</div>
+
+
+
+{% endblock %}

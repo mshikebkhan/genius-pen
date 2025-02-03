@@ -1,0 +1,131 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+
+
+
+<span class="title is-size-4">
+	
+	{% if profile.user ==  request.user %}
+	Following
+	{% else %}
+	{{profile.user.username}}'s Following
+	{% endif %}
+
+</span><span class="is-pulled-right title is-size-5" id="id_following_count">{{profile.following_count}}</span>
+<hr>
+
+
+<div class="columns is-centered">
+<div class="column is-half is-wider">
+
+{% for following in following  %}
+
+<div class="box" style="border-radius: 10px;">
+
+   <div class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+                {% if following != request.user %}
+    <a href="{% url 'users:user-profile' following %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+<img  src="{{following.profile.profile_pic.url}}"class="profile_pic" style="width: 64px; height: 64px; float: left; border: 1px solid #2176D3;">
+</a>
+        </figure>
+      </div>
+<div class="media-content">
+
+  <p class="title is-5 is-size-6-mobile">
+                {% if following != request.user %}
+    <a href="{% url 'users:user-profile' following %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+    {{following.first_name}} {{following.last_name}}
+</a>
+</p>
+    
+  <p class="subtitle is-6" style="color: grey;">
+      @{{following}}
+  </p>
+</div>
+	    <div class="media-right">
+
+    {% if request.user != following %} 
+    {% if following in following_users %}
+    <button onclick="FollowUser(this)" id="id_follow_user_button_{{following.id}}" name="{{following.id}}" class="button is-rounded is-info is-small"><b>Following</b></button>
+    {% else %}
+    <button onclick="FollowUser(this)" id="id_follow_user_button_{{following.id}}" name="{{following.id}}" class="button is-rounded is-light is-small"><b>Follow</b></button>
+
+        {% endif %}
+        {% endif %}
+	    </div>
+</div>
+</div>
+{% empty %}
+<center><p id="id_empty_text">
+    <img src="{% static 'images/following.png' %}" style="height: 100px; width: 90px;">
+    <br>Follow users to see their stories in feed.
+</p></center>
+{% endfor %}
+<br>
+
+{% if popular_users|length != 0 %}
+
+<center><p class="title is-size-4">Popular users</p></center>
+<hr>
+
+{% for user in popular_users  %}
+
+<div class="box" style="border-radius: 10px;">
+
+   <div class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+                {% if user != request.user %}
+    <a href="{% url 'users:user-profile' user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+<img  src="{{user.profile.profile_pic.url}}"class="profile_pic" style="width: 64px; height: 64px; float: left; border: 1px solid #2176D3;">
+</a>
+        </figure>
+      </div>
+<div class="media-content">
+
+  <p class="title is-5 is-size-6-mobile">
+                {% if user != request.user %}
+    <a href="{% url 'users:user-profile' user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+    {{user.first_name}} {{user.last_name}}
+</a>
+</p>
+    
+  <p class="subtitle is-6" style="color: grey;">
+      @{{user}}
+  </p>
+</div>
+      <div class="media-right">
+
+    {% if request.user != user %} 
+    {% if user in following_users %}
+    <button onclick="FollowUser(this)" id="id_follow_user_button_{{user.id}}" name="{{user.id}}" class="button is-rounded is-info is-small"><b>Following</b></button>
+    {% else %}
+    <button onclick="FollowUser(this)" id="id_follow_user_button_{{user.id}}" name="{{user.id}}" class="button is-rounded is-light is-small"><b>Follow</b></button>
+
+        {% endif %}
+        {% endif %}
+      </div>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+</div>
+
+
+{% endblock content %}

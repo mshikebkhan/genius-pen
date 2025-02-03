@@ -1,0 +1,76 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+
+
+<span class="title is-size-4">
+	
+	{% if profile.user ==  request.user %}
+	Followers
+	{% else %}
+	{{profile.user.username}}'s Followers
+	{% endif %}
+
+</span><span class="is-pulled-right title is-size-5">{{profile.followers_count}}</span>
+<hr>
+
+
+<div class="columns is-centered">
+<div class="column is-half is-wider">
+
+{% for follower in followers  %}
+
+<div class="box" style="border-radius: 10px;">
+
+   <div class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+                {% if follower != request.user %}
+    <a href="{% url 'users:user-profile' follower %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+<img  src="{{follower.profile.profile_pic.url}}"class="profile_pic" style="width: 64px; height: 64px; float: left; border: 1px solid #2176D3;">
+</a>
+        </figure>
+      </div>
+<div class="media-content">
+
+  <p class="title is-5 is-size-6-mobile">
+                {% if follower != request.user %}
+    <a href="{% url 'users:user-profile' follower %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+    {{follower.first_name}} {{follower.last_name}}
+</a>
+</p>
+    
+  <p class="subtitle is-6" style="color: grey;">
+      @{{follower}}
+  </p>
+</div>
+	    <div class="media-right">
+
+    {% if request.user != follower %} 
+    {% if follower in following_users %}
+    <button onclick="FollowUser(this)" id="id_follow_user_button_{{follower.id}}" name="{{follower.id}}" class="button is-rounded is-info is-small"><b>Following</b></button>
+    {% else %}
+    <button onclick="FollowUser(this)" id="id_follow_user_button_{{follower.id}}" name="{{follower.id}}" class="button is-rounded is-light is-small"><b>Follow</b></button>
+
+        {% endif %}
+        {% endif %}
+	    </div>
+</div>
+</div>
+{% empty %}
+<center><p id="id_empty_text">
+    <img src="{% static 'images/followers.png' %}" style="height: 100px; width: 100px;">
+    <br>Zero followers.
+</p></center>
+{% endfor %}
+</div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,204 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{%  load static %}
+
+<link rel="stylesheet" href="{% static 'css/text-editor-output.css' %}"></link>
+<script src="{% static 'js/LikeStory.js' %}"></script> 
+
+{% if messages %}
+{% for message in messages %}
+<article class="message is-{{message.tags}}">
+<div class="message-body">
+  {{message}}
+</div>
+</article>
+{% endfor %}
+{% endif %}
+
+   <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+                {% if story.user != request.user %}
+    <a href="{% url 'users:user-profile' story.user %}">
+    {% else %}
+    <a href="{% url 'users:profile' %}">    
+    {% endif %}
+<img  src="{{story.user.profile.profile_pic.url}}"class="profile_pic" style="width: 50px; height: 50px; float: left; border: 1px solid #2176D3;">
+</a>
+        </figure>
+      </div>
+<div class="media-content">
+
+  <p class="title is-5 is-size-6-mobile">
+                {% if story.user != request.user %}
+    <a href="{% url 'users:user-profile' story.user %}" style="color: #4A4A4A;">
+    {% else %}
+    <a href="{% url 'users:profile' %}" style="color: #4A4A4A;">    
+    {% endif %}
+    Shikeb Khan <span class="subtitle is-6" style="color: grey;">@{{story.user}}</span>
+</a>
+</p>
+    
+  <p class="subtitle is-6">
+      
+    {% if request.user != story.user %} 
+    {% if story.user in following_users %}
+    <button onclick="FollowUser(this)" id="id_follow_user_button_{{story.user.id}}" name="{{story.user.id}}" class="button is-rounded is-success is-small">Following</button>
+    {% else %}
+    <button onclick="FollowUser(this)" id="id_follow_user_button_{{story.user.id}}" name="{{story.user.id}}" class="button is-rounded is-light is-small">Follow</button>
+
+        {% endif %}
+        {% else %}
+
+Followers <b>{{request.user.profile.followers_count}}</b>
+        {% endif %}
+
+  </p>
+</div>
+
+
+    <div class="media-right">
+
+
+                        <div class="dropdown is-right" id="id_story_menu">
+                            <div class="dropdown-trigger">
+                                <a id="id_story_menu_trigger" style="color: #4A4A4A;" onclick="OpenStoryMenu()" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span></span>
+                                <span class="icon is-small">
+                                <i class="material-icons-outlined ">more_vert</i>
+                                </span>
+                                </a>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                <div class=" dropdown-content has-text-centered">
+                                    {% if story.user == request.user %}
+                                    <a href="{% url 'story:update-story' story.id %}" class="dropdown-item">
+                                    <b>Update</b>
+                                    </a>
+
+                                    <form action="{% url 'story:delete-story' story.id %}" method="POST" >
+                                    {% csrf_token %}
+                                    <button onclick="return confirm('Are you sure?')" type="submit" class="dropdown-item"><b>Delete</b></button>
+                                    </form> 
+                                    {% else %}
+                                    {% if not story.reported %}
+                                    <a id="id_report_story_a" onclick="ReportStory(this)" name="{{story.id}}" class="dropdown-item">
+                                    <b id="id_report_story_text">Report</b>
+                                    </a>
+                                    {% else %}
+                                    <a id="id_report_story_a" name="{{story.id}}" class="dropdown-item is-idle">
+                                    <b id="id_report_story_text">Reported</b>
+                                    </a>                                    
+                                    {% endif %}                                    
+                                    {% endif %} 
+
+                                </div>
+                            </div>
+                        </div>
+
+    </div>
+
+
+</div>
+<hr>
+
+
+<div class="columns  is-centered">
+<div class="column is-two-thirds">
+
+
+
+
+<small>Category: <a href="{% url 'story:category' story.category %}">{{story.category}}</a></small>
+
+    <span class="icon-text is-pulled-right">
+  <span class="icon">
+
+
+{% if story not in saved_stories %}
+
+    <a style="color: #4A4A4A;" name="{{story.id}}" id="id_save_story_a{{story.id}}" onclick="SaveStory(this)">
+<i id="id_save_story_icon{{story.id}}" class="material-icons">bookmark_border</i>
+</a>
+{% else %}
+    <a style="color: #4A4A4A;" name="{{story.id}}" id="id_save_story_a{{story.id}}" onclick="SaveStory(this)">
+<i id="id_save_story_icon{{story.id}}" class="material-icons">bookmark</i>
+</a>
+{% endif %}
+
+  </span>
+
+</span>
+
+
+<p style="font-weight: bold;" class="title is-size-4-mobile">{{story.title}}</p>
+{% if story.cover %}
+<center>
+<img style='max-height: 400px; width: auto' src="{{story.cover.url}}" >
+</center>
+<br>
+{% endif %}
+ 
+<div style="font-size: 17px;">
+
+{{story.content|safe}}
+
+</div>
+
+<br>
+<div class="field is-grouped is-grouped-multiline">
+  <div class="control">
+    <div class="tags has-addons">
+      <span class="tag is-dark is-rounded">Published</span>
+      <span class="tag is-success">{{story.date_created|date}}</span>
+    </div>
+  </div>
+{% if story.date_updated %}
+  <div class="control">
+    <div class="tags has-addons">
+      <span class="tag is-dark is-rounded">Last updated</span>
+      <span class="tag is-primary">{{story.date_updated|date}}</span>
+    </div>
+  </div>
+{% endif %}
+</div>
+<p class="subtitle is-size-6" style="padding-top: 10px;"><small>Views {{story.views}} · Likes <span id="id_like_story_count2">{{story.likes}}</span> · Comments {{story.comments_count}}</small></p>
+
+<div class="card-footer">
+      <div class="card-footer-item"> 
+
+    <span class="icon-text is-pulled-right">
+  <span class="icon">
+
+{% if story not in liked_stories %}
+
+    <a style="color: #4A4A4A;" name="{{story.id}}" id="id_like_story_a" onclick="LikeStory(this)">
+<i id="id_like_story_icon" class="material-icons-outlined">thumb_up</i>
+</a>
+{% else %}
+    <a style="color: #4A4A4A;" name="{{story.id}}" id="id_like_story_a" onclick="LikeStory(this)">
+<i id="id_like_story_icon" class="material-icons">thumb_up</i>
+</a>
+{% endif %}
+
+  <span id="id_like_story_count">&nbsp{{story.likes}}</span>
+  </span>
+
+</div>
+      <div class="card-footer-item">
+    <span class="icon-text">
+  <span class="icon">
+<a style="color: #4A4A4A;" href="{% url 'story:comments' story.id %}">
+  <i class="material-icons">comment</i>
+</a>
+  </span>
+  <span>{{story.comments_count}}</span>
+</span>
+</div>
+</div>
+
+
+
+</div>
+</div>
+{% endblock content %}

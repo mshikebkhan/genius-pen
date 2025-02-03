@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" 
+    content="GeniusPen is an online simple and easy to use blogging platform that allow people to share their ideas and their life moments with a huge community.">    
+    <title>GeniusPen - A simple, easy to use and free blogging platform</title>
+
+    <! –– Load java script ––>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    <script src="{% static 'js/collapsed_menu.js' %}"></script>
+    <script src="{% static 'js/DraftMenu.js' %}"></script>
+    <script src="{% static 'js/StoryMenu.js' %}"></script> 
+    <script src="{% static 'js/SaveStory.js' %}"></script> 
+    <script src="{% static 'js/ReportStory.js' %}"></script>
+    <script src="{% static 'js/ReportComment.js' %}"></script>   
+    <script src="{% static 'js/csrf.js' %}"></script>
+    <script src="{% static 'js/DeleteComment.js' %}"></script>
+    <script src="{% static 'js/AddComment.js' %}"></script>
+    <script src="{% static 'js/FollowUser.js' %}"></script>
+    <script src="{% static 'js/FollowCategory.js' %}"></script>     
+
+    <script src="{% static 'js/ReportReply.js' %}"></script> 
+    <script src="{% static 'js/DeleteReply.js' %}"></script>
+    <script src="{% static 'js/AddReply.js' %}"></script>                
+
+    <! –– Load css ––>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'CSS/styles.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+  </head>
+  <body>
+
+{% include 'core/navbar.html' %}
+
+  <section class="section">
+    <div class="container">
+      <br>
+      {% block content %}
+
+      {% endblock content %}
+      <br>
+    </div>
+  </section>
+  </body>
+</html>

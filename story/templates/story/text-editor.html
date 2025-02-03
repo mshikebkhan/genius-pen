@@ -1,0 +1,56 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/text-editor-output.css' %}"></link>
+<style>
+
+        .sample-toolbar
+        {
+
+            border:solid 1px #ddd;
+            padding: 5px;
+            border-radius:3px;
+        }
+
+        .sample-toolbar > span
+        {
+            cursor:pointer;
+        }
+
+        .sample-toolbar > span:hover
+        {
+            text-decoration:underline;
+        }
+
+        a{
+            color: black;
+        }
+
+    </style>
+
+    <div class="sample-toolbar">
+        <a class="button" href="javascript:void(0)" onclick="format('insertHTML', '<br><center>* * *</center><br>')">* * *</a> 
+        <a class="button" href="javascript:void(0)" onclick="format('inserthorizontalrule')">___</a>                 
+        <a class="button" href="javascript:void(0)" onclick="format('insertorderedList')"><span style="color:black;" class="fa fa-list fa-fw"></span></a>        
+    </div>
+ 
+
+    <script>
+        window.addEventListener('load', function(){
+            document.getElementById('id_content_editable').setAttribute('contenteditable', 'true');
+        document.getElementById('id_content_editable').setAttribute('data-placeholder', 'An impressive story');
+            document.getElementById('id_content').setAttribute('contenteditable', 'true');
+        });
+
+        function format(command, value) {
+            document.execCommand(command, false, value);
+            document.getElementById('id_content_editable').focus()
+        }
+
+        function setUrl() {
+            var url = document.getElementById('txtFormatUrl').value;
+            var sText = document.getSelection();
+            document.execCommand('insertHTML', false, '<a href="' + url + '" target="_blank">' + sText + '</a>');
+            document.getElementById('txtFormatUrl').value = '';
+        }
+   
+    </script>
