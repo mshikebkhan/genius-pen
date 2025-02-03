@@ -1,6 +1,6 @@
 Online Article Writing Platform <br>
 
-GeniusPen is a Django-based online platform where you can write articles or share your stories. It comes with avery smooth and clean UI and very easy to use. <br>
+GeniusPen is a Django-based online article-writing platform where users can write on various topics, share their thoughts, and engage with a community of readers and writers. It provides a simple, interactive space to explore ideas, gain followers, and build meaningful discussions. <br>
 
 Key Features: <br>
 
