@@ -13,10 +13,10 @@ It's a space where you can ask questions, share your knowledge, and connect with
 
 <hr>
 
-Team: <br>  
+Team:
 Concept & Backend Developer: Shikeb Khan <br>  
 Frontend Developer & UI Designer: Shikeb Khan <br>  
 
-Technologies: <br>  
+Technologies:
 Django (Backend) <br>    
 Bulma CSS (Frontend)
