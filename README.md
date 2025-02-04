@@ -1,11 +1,22 @@
-Online Article Writing Platform <br>
+<h1>Discuss Point</h1>
+Discuss Point is a Q&A platform designed to bring together curious minds and experts. <br>
+It's a space where you can ask questions, share your knowledge, and connect with others who are passionate about learning and problem-solving.
 
-GeniusPen is a Django-based online article-writing platform where users can write on various topics, share their thoughts, and engage with a community of readers and writers. It provides a simple, interactive space to explore ideas, gain followers, and build meaningful discussions. <br>
+<hr>
 
-Key Features: <br>
+<h2>Key Features</h2>
+❓ <b>Ask and Answer</b> – Easily post your questions or provide answers on a variety of topics. <br>
+📚 <b>Topic Exploration</b> – Follow topics of interest to see the latest questions and discussions. <br>
+💬 <b>Community Engagement</b> – Like, comment, and interact with users to build meaningful conversations. <br>
+👥 <b>Follow System</b> – Stay updated by following users and topics that resonate with you. <br>
+✨ <b>Clean and Responsive Design</b> – Enjoy a straightforward, user-friendly interface for an optimal experience.
 
-Article Writing – Create and publish articles on any topic. <br>
-Topic-Based Exploration – Follow topics to stay updated with relevant content. <br>
-Community Engagement – Like, comment, and interact with other users. <br>
-Follow System – Follow writers and gain followers to grow your audience. <br>
-Clean and Responsive Design – A simple, user-friendly interface for a smooth experience. <br>
+<hr>
+
+Team: <br>  
+Concept & Backend Developer: Shikeb Khan <br>  
+Frontend Developer & UI Designer: Shikeb Khan <br>  
+
+Technologies: <br>  
+Django (Backend) <br>    
+Bulma CSS (Frontend)
