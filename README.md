@@ -1,4 +1,4 @@
-<h1>Discuss Point</h1>
+<h1>Genius Pen</h1>
 GeniusPen is a dynamic article-writing platform that empowers writers to share their insights, express their creativity, and engage with a like-minded community. Whether you're passionate about technology, lifestyle, health, or any other topic, GeniusPen provides the perfect space to craft and publish your thoughts.
 
 <hr>
