@@ -1,14 +1,14 @@
 <h1>Discuss Point</h1>
-Discuss Point is a Q&A platform designed to bring together curious minds and experts. <br>
-It's a space where you can ask questions, share your knowledge, and connect with others who are passionate about learning and problem-solving.
+GeniusPen is a dynamic article-writing platform that empowers writers to share their insights, express their creativity, and engage with a like-minded community. Whether you're passionate about technology, lifestyle, health, or any other topic, GeniusPen provides the perfect space to craft and publish your thoughts.
 
 <hr>
 
 <h2>Key Features</h2>
-❓ <b>Ask and Answer</b> – Easily post your questions or provide answers on a variety of topics. <br>
-📚 <b>Topic Exploration</b> – Follow topics of interest to see the latest questions and discussions. <br>
-💬 <b>Community Engagement</b> – Like, comment, and interact with users to build meaningful conversations. <br>
-👥 <b>Follow System</b> – Stay updated by following users and topics that resonate with you. <br>
+📝 <b>Article Writing</b> – Write and publish articles on a wide range of topics. <br>
+🔄 <b>Read History </b> – Easily revisit recently viewed articles through your read history. <br>
+📌 <b>Topic-Based Exploration:</b> – Discover and follow topics that interest you to stay updated. <br>
+👥 <b>Community Engagement</b> – Like, comment, and interact with fellow writers and readers. <br>
+🔗 <b>Follow & Connect</b> – Build your audience by following writers and gaining followers. <br>
 ✨ <b>Clean and Responsive Design</b> – Enjoy a straightforward, user-friendly interface for an optimal experience.
 
 <hr>
