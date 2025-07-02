@@ -23,6 +23,16 @@ class StoryForm(forms.ModelForm):
             'visibility': forms.Select(choices=visibility_choices),
             'category': forms.Select(choices=category_choices)
         }
+	    
+    def __init__(self, *args, **kwargs):
+        super(StoryForm, self).__init__(*args, **kwargs)
+        try:
+            self.fields['category'].choices = [
+                (cat.title, cat.title) for cat in Category.objects.all()
+            ]
+        except:
+            # Prevent crash if table doesn't exist (e.g., during migrate)
+            self.fields['category'].choices = []
 
 
 
