@@ -29,12 +29,12 @@ Whether you're writing about tech, lifestyle, health, or personal reflections â€
 
 | Screenshot | Description |
 |------------|-------------|
-| ![Home](screenshots/home.PNG) | Homepage with trending articles |
+| ![Home](screenshots/home.PNG) | Home Page / Welcome Page |
+| ![Profile](screenshots/profile.PNG) | User Profile |
+| ![History](screenshots/login.PNG) | Login Page |
 | ![Article](screenshots/article_detail.PNG) | Article View Page |
 | ![Create](screenshots/create_article.PNG) | Create New Article |
-| ![Topic](screenshots/topics.PNG) | Explore by Topic |
-| ![Profile](screenshots/profile.PNG) | User Profile |
-| ![History](screenshots/history.PNG) | Read History Page |
+| ![Topic](screenshots/interests.PNG) | Explore/Follow Interests |
 
 > ğŸ“¸ Make sure these image files exist in the `screenshots/` folder.
 
