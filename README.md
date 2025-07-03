@@ -14,11 +14,6 @@ Whether you're writing about tech, lifestyle, health, or personal reflections �
 
 ---
 
-## 🌐 Live Website
-
-🔗 _Coming Soon_  
-<!-- Or replace with your deployment URL -->
-
 ---
 
 ## 🚀 Features
