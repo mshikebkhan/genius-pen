@@ -14,8 +14,6 @@ Whether you're writing about tech, lifestyle, health, or personal reflections �
 
 ---
 
----
-
 ## 🚀 Features
 
 - 📝 **Article Writing** – Easily create, edit, and publish articles on diverse topics.  
