@@ -36,8 +36,6 @@ Whether you're writing about tech, lifestyle, health, or personal reflections �
 | ![Create](screenshots/create_article.PNG) | Create New Article |
 | ![Topic](screenshots/interests.PNG) | Explore/Follow Interests |
 
-> 📸 Make sure these image files exist in the `screenshots/` folder.
-
 ---
 
 ## 🛠 Tech Stack
