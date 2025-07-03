@@ -75,7 +75,7 @@ python manage.py runserver
 
 ## 📌 TODO Ideas
 
-- Customised user feed for the user based on their likes, saves, & Interests
+- Replace the Text Editor with a Rich Text Editor with images, code, links, etc options
 
 ---
 
