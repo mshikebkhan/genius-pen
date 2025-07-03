@@ -33,6 +33,7 @@ Whether you're writing about tech, lifestyle, health, or personal reflections â€
 | ![History](screenshots/login.PNG) | Login Page |
 | ![Profile](screenshots/user_profile.PNG) | User Profile |
 | ![Create](screenshots/create_article.PNG) | Create New Article |
+| ![Create](screenshots/drafts.PNG) | Keep Drafts & Publish anytime |
 | ![Article](screenshots/article_detail.PNG) | Article View Page |
 | ![Topic](screenshots/interests.PNG) | Explore/Follow Interests |
 
