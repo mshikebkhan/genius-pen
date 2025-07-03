@@ -30,10 +30,10 @@ Whether you're writing about tech, lifestyle, health, or personal reflections â€
 | Screenshot | Description |
 |------------|-------------|
 | ![Home](screenshots/home.PNG) | Home Page / Welcome Page |
-| ![Profile](screenshots/user_profile.PNG) | User Profile |
 | ![History](screenshots/login.PNG) | Login Page |
-| ![Article](screenshots/article_detail.PNG) | Article View Page |
+| ![Profile](screenshots/user_profile.PNG) | User Profile |
 | ![Create](screenshots/create_article.PNG) | Create New Article |
+| ![Article](screenshots/article_detail.PNG) | Article View Page |
 | ![Topic](screenshots/interests.PNG) | Explore/Follow Interests |
 
 ---
